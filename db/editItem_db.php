@@ -7,14 +7,13 @@
         $p_name = $_REQUEST['productname'];
         $brand = $_REQUEST['brand'];
         $serial_no = $_REQUEST['serialno'];
-        $batch_no = $_REQUEST['batchno'];
         $sku = $_REQUEST['sku'];
         $u_price = $_REQUEST['unitprice'];
         $logs = $_REQUEST['itemeditlog'];
 
         // Inserting into Product table
-        $query = "INSERT INTO Product (prod_name, brand, serial_no, batch_no, SKU, unit_price) 
-                    VALUES ('$p_name', '$brand', '$serial_no', '$batch_no', '$sku', '$u_price')";
+        $query = "INSERT INTO Product (prod_name, brand, serial_no, SKU, unit_price) 
+                    VALUES ('$p_name', '$brand', '$serial_no', '$sku', '$u_price')";
 
         if (mysqli_query($con, $query)) {
             // test for now

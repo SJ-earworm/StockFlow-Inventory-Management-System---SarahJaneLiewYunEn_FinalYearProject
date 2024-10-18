@@ -32,6 +32,8 @@ form input {
 
 select {
     padding-left: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-radius: 50px;
     border: 1.5px solid black;
 }
@@ -55,15 +57,16 @@ a {
     /* border: 1px solid green; */
 }
 
-.button {
+.orange-button {
     background-color: #FA673E;
     color: #F1EFE6;
     border-width: 0;
     border-radius: 50px;
     font-size: 15px;
+    padding: 5px 10px;
 }
 
-.button:hover {
+.orange-button:hover {
     background-color: #ff3700;
     cursor: pointer;
 }
@@ -159,7 +162,7 @@ a {
 /* manage stock page */
 .mng-stock-grid {
     display: grid;
-    grid-template-columns: 11% 14% 8.6% 8.6% 11% 8% 7% 7% 15%;
+    grid-template-columns: 11% 14% 8.6% 11% 8% 7% 7% 15%;
     column-gap: 10px;
 }
 

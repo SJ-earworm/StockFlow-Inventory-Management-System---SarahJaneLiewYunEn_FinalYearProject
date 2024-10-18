@@ -14,7 +14,7 @@
     <body>
         <!-- Header -->
         <?php
-            include("web_components/header.php");
+            include("web_components/admin_header.php");
         ?>
 
         <!-- temporary, for debugging -->
@@ -25,18 +25,44 @@
         <!-- Page title -->
         <div class="main-content">
             <h1 style="padding-left: 2%; margin-bottom: 10px;">Stock List</h1>
+
+            <!-- Add item button-->
+            <a href="edititem.php">
+                <button>Add item +</button>
+            </a>
+
+            <!-- Orange header line 1 -->
+            <hr class="col-header-ln-1">
+            <div class="mng-stock-grid" style="margin: 0 2.7%;">
+                <!-- Column headers -->
+                <span>Stock Keeping Unit</span>
+                <span>Product Name</span>
+                <span>Serial No.</span>
+                <span>Batch No.</span>
+                <span>Brand</span>
+                <span>Product Type</span>
+                <span>Unit Price</span>
+                <span>Stock Count</span>
+                <span>Vendor</span>
+            </div>
+            <hr class="col-header-ln-1">
+
+            <!-- Stock list -->
+            <?php
+                include("db/stocklist.php");
+            ?>
         </div>
 
         <!-- Add item button-->
-        <a href="edititem.php">
+        <!-- <a href="edititem.php">
             <button>Add item +</button>
-        </a>
+        </a> -->
 
         <!-- Orange header line 1 -->
-        <hr class="col-header-ln-1">
-        <div class="mng-stock-grid" style="margin: 0 2.7%;">
+        <!-- <hr class="col-header-ln-1">
+        <div class="mng-stock-grid" style="margin: 0 2.7%;"> -->
             <!-- Column headers -->
-            <span>Stock Keeping Unit</span>
+            <!-- <span>Stock Keeping Unit</span>
             <span>Product Name</span>
             <span>Serial No.</span>
             <span>Batch No.</span>
@@ -46,11 +72,11 @@
             <span>Stock Count</span>
             <span>Vendor</span>
         </div>
-        <hr class="col-header-ln-1">
+        <hr class="col-header-ln-1"> -->
 
         <!-- Stock list -->
         <?php
-            include("db/stocklist.php");
+            // include("db/stocklist.php");
         ?>
 
         <!-- <div class="mng-stock-grid" style=" padding: 10px; height: 14px;">
