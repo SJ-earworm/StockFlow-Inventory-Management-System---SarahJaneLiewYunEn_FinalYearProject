@@ -14,7 +14,7 @@
     <body>
         <!-- Header -->
         <?php
-            include("web_components/header.php");
+            include("web_components/admin_header.php");
         ?>
         
         <!-- Dashboard -->

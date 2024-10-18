@@ -144,7 +144,6 @@
         `productID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `prod_name` varchar(255) NOT NULL,
         `serial_no` varchar(255) NOT NULL,
-        `batch_no` varchar(255) NOT NULL,
         `SKU` varchar(255) NOT NULL,
         `brand` varchar(255) NOT NULL,
         `prod_type` varchar(255) NOT NULL,
@@ -164,6 +163,40 @@
         echo "'Product' table created successfully! <br/>";
     } else {
         echo "Error creating 'Product' table: " . mysqli_error($con);
+    }
+
+
+
+    // Sales table
+    $query = "CREATE TABLE IF NOT EXISTS `Sales` (
+        `salesID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `userID` bigint(20) UNSIGNED NOT NULL,
+        `total_paid` decimal(10,2) NOT NULL,
+        `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (`userID`) REFERENCES `User` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+        )";
+
+    if (mysqli_query($con, $query)) {
+        echo "'Sales' table created successfully! <br/>";
+    } else {
+        echo "Error creating 'Sales' table: " . mysqli_error($con);
+    }
+
+
+
+    // Sales Item Link table
+    $query = "CREATE TABLE IF NOT EXISTS `Sales_Item_Link` (
+        `salesID` bigint(20) UNSIGNED NOT NULL,
+        `productID` bigint(20) UNSIGNED NOT NULL,
+        `quantity_bought` int(5) NOT NULL,
+        FOREIGN KEY (`salesID`) REFERENCES `Sales` (`salesID`) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE
+        )";
+
+    if (mysqli_query($con, $query)) {
+        echo "'Sales_Item_Link' table created successfully! <br/>";
+    } else {
+        echo "Error creating 'Sales_Item_Link' table: " . mysqli_error($con);
     }
 
 

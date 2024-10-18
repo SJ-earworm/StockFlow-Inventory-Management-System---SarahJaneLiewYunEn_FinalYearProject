@@ -5,6 +5,7 @@
     $query = "SELECT * FROM Product WHERE storeID = (SELECT storeID FROM User WHERE userID = ?)";  // selecting all the products 
                                                                                                    // saved into the store's profile
     $stmt = $con->prepare($query);
+    $stmt->bind_param("i", $userID);
     $stmt->execute();
     $result = $stmt->get_result();
     if (mysqli_num_rows($result) > 0) {
@@ -13,7 +14,6 @@
             echo '  <span class="grid-element">' . $row['SKU'] . '</span>';
             echo '  <span class="grid-element">' . $row['prod_name'] . '</span>';
             echo '  <span class="grid-element">' . $row['serial_no'] . '</span>';
-            echo '  <span class="grid-element">' . $row['batch_no'] . '</span>';
             echo '  <span class="grid-element">' . $row['brand'] . '</span>';
             echo '  span class="grid-element">' . $row['prod_type'] . '</span>';
             echo '  <span class="grid-element">' . $row['unt_price'] . '</span>';

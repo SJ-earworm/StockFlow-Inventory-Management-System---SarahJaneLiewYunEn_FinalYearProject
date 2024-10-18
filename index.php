@@ -1,7 +1,7 @@
 <?php
     require("db/dbConnect.php");
     require("app_config/session_handling.php");
-    require("db/session_handling_db.php");
+    require("db/session_handling_db.php");  // retrieving current userID from database
 
     // If user is an admin, call admin page
     // else, call staff page

@@ -40,8 +40,6 @@
             <input type="text" name="brand" placeholder="Brand *" autocomplete="off" required />
             <!-- Serial number -->
             <input type="text" name="serialno" placeholder="Serial number" autocomplete="off" />
-            <!-- Batch number -->
-            <input type="text" name="batchno" placeholder="Batch number" autocomplete="off" />
             <!-- Stock Keeping Unit -->
             <input type="text" name="sku" placeholder="Stock Keeping Unit (SKU) *" autocomplete="off" required />
             <!-- Unit price -->
