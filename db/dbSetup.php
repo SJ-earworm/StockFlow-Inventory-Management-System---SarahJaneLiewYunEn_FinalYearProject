@@ -125,16 +125,33 @@
 
 
 
-    // Product Category table
-    $query = "CREATE TABLE IF NOT EXISTS `Product_Category` (
-        `categoryID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `category` varchar(255) DEFAULT '-'
+    // Table linking Vendor & Store
+    $query = "CREATE TABLE IF NOT EXISTS `Vendor_Store_Link` (
+        `vendorID` bigint(20) UNSIGNED NOT NULL,
+        `storeID` bigint(20) UNSIGNED NOT NULL,
+        FOREIGN KEY (`vendorID`) REFERENCES `Vendor` (`vendorID`) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`storeID`) REFERENCES `Store` (`storeID`) ON DELETE CASCADE ON UPDATE CASCADE
     )";
 
     if (mysqli_query($con, $query)) {
-        echo "'Product_Category' table created successfully! <br/>";
+        echo "'Vendor_Store_Link' table created successfully! <br/>";
     } else {
-        echo "Error creating 'Product_Category' table: " . mysqli_error($con);
+        echo "Error creating 'Vendor_Store_Link' table: " . mysqli_error($con);
+    }
+
+
+    // Table linking Vendor & Product
+    $query = "CREATE TABLE IF NOT EXISTS `Vendor_Product_Link` (
+        `vendorID` bigint(20) UNSIGNED NOT NULL,
+        `productID` bigint(20) UNSIGNED NOT NULL,
+        FOREIGN KEY (`vendorID`) REFERENCES `Vendor` (`vendorID`) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`productID`) REFERENCES `Product` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE
+    )";
+
+    if (mysqli_query($con, $query)) {
+        echo "'Vendor_Product_Link' table created successfully! <br/>";
+    } else {
+        echo "Error creating 'Vendor_Product_Link' table: " . mysqli_error($con);
     }
 
 
@@ -146,16 +163,17 @@
         `serial_no` varchar(255) NOT NULL,
         `SKU` varchar(255) NOT NULL,
         `brand` varchar(255) NOT NULL,
-        `prod_type` varchar(255) NOT NULL,
+        `prodtypeID` bigint(20) UNSIGNED NOT NULL,    -- previously prod_type varchar(255) --
+        -- `categoryID` bigint(20) UNSIGNED NOT NULL,
         `unit_price` decimal(10,2) NOT NULL,
         `quantity` int(5) NOT NULL,
-        -- `categoryID` bigint(20) UNSIGNED NOT NULL,
         `storeID` bigint(20) UNSIGNED NOT NULL,
         -- `vendorID` bigint(20) UNSIGNED NOT NULL,
         `date_in` DATETIME,
         `date_out` DATETIME,
         `time_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        -- FOREIGN KEY (`categoryID`) REFERENCES `Product_Category` (`categoryID`) ON DELETE CASCADE ON UPDATE CASCADE,
+        -- FOREIGN KEY (`prodtypeID`) REFERENCES Product_Type (`prodtypeID`) ON DELETE CASCADE ON UPDATE CASCADE,
+        -- FOREIGN KEY (`categoryID`) REFERENCES `Product_Category` (`categoryID`) ON DELETE CASCADE ON UPDATE CASCADE
         -- FOREIGN KEY (`vendorID`) REFERENCES `Vendor` (`vendorID`) ON DELETE CASCADE ON UPDATE CASCADE
     )";
 
@@ -163,6 +181,72 @@
         echo "'Product' table created successfully! <br/>";
     } else {
         echo "Error creating 'Product' table: " . mysqli_error($con);
+    }
+
+
+
+    // Product Type table
+    $query = "CREATE TABLE IF NOT EXISTS `Product_Type` (
+        `prodtypeID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `prod_type` varchar(255) DEFAULT '-',
+        `storeID` bigint(20) UNSIGNED NOT NULL,
+        FOREIGN KEY (`storeID`) REFERENCES `Store` (`storeID`) ON DELETE CASCADE ON UPDATE CASCADE
+    )";
+
+    if (mysqli_query($con, $query)) {
+        echo "'Product_Type' table created successfully! <br/>";
+    } else {
+        echo "Error creating 'Product_Type' table: " . mysqli_error($con);
+    }
+
+
+
+    // Product_Type_Link table
+    $query = "CREATE TABLE IF NOT EXISTS `Product_Type_Link` (
+        `prodtypeID` bigint(20) UNSIGNED NOT NULL,
+        `productID` bigint(20) UNSIGNED NOT NULL,
+        `storeID` bigint(20) UNSIGNED NOT NULL,
+        FOREIGN KEY (`prodtypeID`) REFERENCES Product_Type (`prodtypeID`) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`productID`) REFERENCES Product (`productID`) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (`storeID`) REFERENCES `Store` (`storeID`) ON DELETE CASCADE ON UPDATE CASCADE
+    )";
+
+    if (mysqli_query($con, $query)) {
+        echo "'Product_Type_Link' table created successfully! <br/>";
+    } else {
+        echo "Error creating 'Product_Type_Link' table: " . mysqli_error($con);
+    }
+
+
+
+    // Product Category table
+    $query = "CREATE TABLE IF NOT EXISTS `Product_Category` (
+        `categoryID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `category` varchar(255) DEFAULT '-',
+        `storeID` bigint(20) UNSIGNED NOT NULL,
+        FOREIGN KEY (`storeID`) REFERENCES Store (`storeID`) ON DELETE CASCADE ON UPDATE CASCADE
+    )";
+
+    if (mysqli_query($con, $query)) {
+        echo "'Product_Category' table created successfully! <br/>";
+    } else {
+        echo "Error creating 'Product_Category' table: " . mysqli_error($con);
+    }
+
+
+
+    // Product_Category_Link table
+    $query = "CREATE TABLE IF NOT EXISTS `Product_Category_Link` (
+        `categoryID` bigint(20) UNSIGNED NOT NULL,
+        `productID` bigint(20) UNSIGNED NOT NULL,
+        FOREIGN KEY (`categoryID`) REFERENCES Product_Category (`categoryID`) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`productID`) REFERENCES Product (`productID`) ON DELETE CASCADE ON UPDATE CASCADE
+    )";
+
+    if (mysqli_query($con, $query)) {
+        echo "'Product_Category_Link' table created successfully! <br/>";
+    } else {
+        echo "Error creating 'Product_Category_Link' table: " . mysqli_error($con);
     }
 
 

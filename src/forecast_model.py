@@ -1,7 +1,12 @@
 import pymysql
 import pandas as pd
 from prophet import Prophet
+import numpy as np
+from scipy import stats
+import heapq
 import sys
+import logging
+import json
 
 # connecting to phpmyadmin database
 con = pymysql.connect(
@@ -15,12 +20,12 @@ con = pymysql.connect(
 cursor = con.cursor()
 
 # extracting userID & user-set forecast period from passed arguments
-# userID = sys.argv[1]
-# forecastperiod = sys.argv[2]
+userID = sys.argv[1]
+forecastperiod = sys.argv[2]
 
 # temporary hardcode
-userID = 1
-forecastperiod = 100
+# userID = 1
+# forecastperiod = 100
 
 # declaring accessible variables
 result = "placeholder"
@@ -70,7 +75,7 @@ finally:
 # forecasting with fb prophet
 if len(result) > 0:
     # test
-    print("Rows retrieved: " + str(len(result)))
+    logging.debug("Rows retrieved: " + str(len(result)))
 
     # loading the raw data into the pandas dataframe (arranging into a 2D array of rows & columns)
     dataframe = pd.DataFrame(result, columns=['ds', 'Product ID', 'Product Name', 'SKU', 'y'])  # ds = timestamp, y = quantity_bought. \
@@ -82,11 +87,24 @@ if len(result) > 0:
     # print(dataframe)
     
     try:
+        # dictionary (key-value pair 'array') for holding the accumulated forecast value for comparison
+        total_quantity_forecast = {}
+
         # looping thru each productID found in the list to perform individual product forecasting
-        for eachproduct in allProductIDsList:
+        for eachproductID in allProductIDsList:
             # putting the rows of the current productID into a new dataframe
-            epDataframe = dataframe[dataframe['Product ID'] == eachproduct]
-            
+            epDataframe = dataframe[dataframe['Product ID'] == eachproductID]
+
+            # stop current iteration & move to the next productID if not enough rows to process/dataframe is empty
+            # reason: Prophet will not work properly if there are less than 2 rows of data to process
+            if len(epDataframe) < 2 or epDataframe[['ds', 'y']].isnull().values.any():
+                logging.debug("Too little rows/no data in epDataframe, moving to the next product")
+                print("Too little rows/no data in epDataframe, moving to the next product")
+                continue
+            # test
+            # print("printing epDataframe")
+            # print(epDataframe)
+
 
             # fb prophet sequence
             # setting the model
@@ -106,13 +124,46 @@ if len(result) > 0:
             forecast = m.predict(future)
 
             # internal testing
-            print(forecast.head())
+            # print(forecast.head())
             # print(m.plot_components(forecast))  # plot line graph
-            
-            # test output
-            # print("finished python sequence")
 
-            # sending data back to php for displaying into the interface
+            # PROBLEM HERE, for loop not being touched
+
+            # debugging
+            # print("going into for accumulation loop")
+            # iterating thru the forecast rows
+            for index, row in forecast.iterrows():
+                # adding up the forecasted yhat (quantity_bought)
+                if eachproductID in total_quantity_forecast:
+                    total_quantity_forecast[eachproductID] += row['yhat']
+                    # print(f"current EXISTING total forecast quant: {total_quantity_forecast[eachproductID]}")
+                else:
+                    total_quantity_forecast[eachproductID] = row['yhat']
+                    # print(f"new accumulative forecast quant: {total_quantity_forecast[eachproductID]}")
+        
+
+        # finding which product has the most forecasted sales during the period
+        # converting total_quantity_forecast dictionary into a list (so taht we can use np.array)
+        # yhat_values = np.array(list(total_quantity_forecast.values()))
+        
+        # finding mode quantity sold
+        # modequantity = stats.mode(yhat_values)
+
+        # identifying which product the mode value belongs to
+        # for 
+
+        # test
+        # print ("AFTER ACCUMULATION SEQUENCE")
+
+
+        # finding the top 5 forecasted product quantities
+        top_5_sales = heapq.nlargest(5, total_quantity_forecast.items(), key=lambda item: item[1])
+        # test
+        logging.debug(top_5_sales)
+
+        # sending data back to php for displaying into the interface
+        print(json.dumps(top_5_sales))  # sending arrays requires passing json output via json.dumps()
+
 
     except ValueError as e:
         print(f"Error: {e}")

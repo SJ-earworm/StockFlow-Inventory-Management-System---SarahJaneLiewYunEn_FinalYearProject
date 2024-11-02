@@ -7,7 +7,7 @@
     // If user is an admin, call admin page
     // else, call staff page
     if ($user_type == 'admin') {
-        include("admin/edititem_admin.php");
+        include("admin/addnewitem_admin.php");
     } else if ($user_type == 'staff') {
         // include("index_staff.php");
     } else {

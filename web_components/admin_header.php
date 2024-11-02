@@ -10,7 +10,7 @@
                 <button id="navbtn">Scan Items</button>
                 <a href="index.php">Overview</a>
                 <a href="managestocks.php">Manage Stocks</a>
-                <a href="#">Orders & Vendors</a>
+                <a href="ordersandvendors.php">Orders & Vendors</a>
                 <a href="reportanalytics_adminonly.php">Reporting & Analytics</a>
             </nav>
 
