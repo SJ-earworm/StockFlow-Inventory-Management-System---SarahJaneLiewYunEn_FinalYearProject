@@ -13,11 +13,21 @@
 
         // running the python script & retrieving forecast result
         $output = shell_exec('python "C:\\Applications\\XAMPP\\htdocs\\StockFlow IMS (FINAL YEAR PROJECT)\\src\\forecast_model.py" ' . $userID . ' ' . $period . ' 2>&1');
+        // $output = shell_exec('python "C:\\Applications\\XAMPP\\htdocs\\StockFlow IMS (FINAL YEAR PROJECT)\\src\\forecast_model.py" ' . $userID . ' ' . $period);
         // DEBUGGING HEREEEEEEE !!!!!
         // debugging
         // $output = shell_exec('python --version 2>&1');
+        echo "just came out of shell_exec()";
+        // CONTINUE DEBUGGING. NOTHING BEING OUTPUT FROM PYTHON
+
+        // extracting python script output (sent back as JSON)
+        $forecast = json_decode($output, true);  // 'true' tells json_decode to return data as associative array 
+                                                 // instead of PHP object
         
+        // test
+        echo $forecast;
+
         // sending forecast result to the frontend in JSON format
-        echo json_encode($output);
+        // echo json_encode($output);
     }
 ?>

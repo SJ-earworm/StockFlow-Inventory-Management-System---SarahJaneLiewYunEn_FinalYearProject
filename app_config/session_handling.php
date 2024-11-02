@@ -1,7 +1,10 @@
 <?php
 
+    // check if session has started. if not,
     // start the session with the logged in user
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     // isset() to check if 'userID' exists in the session
     if (isset($_SESSION['userID'])) {
