@@ -30,8 +30,9 @@
         $u_price = $_REQUEST['unitprice'];
         $quantity = $_REQUEST['quantity'];  // new
         $vendorID = $_REQUEST['vendor'];  // new
-        $p_type = $_REQUEST['prodtype'];  // new
-        $p_category = $_REQUEST['prodcat'];  // new
+        $p_typeID = $_REQUEST['prodtype'];  // new
+        $intcasted_ptypeID = intval($p_typeID);  // converting dropdown value to integer (cos <select> values are returned as strings)
+        $p_category = $_REQUEST['prodcat'] ?? '--';  // new
         $logs = $_REQUEST['itemeditlog'];
 
         // debugging
@@ -90,12 +91,12 @@
         }
 
 
-        // updating product type (if have)
-        if ($p_type !== '' && $p_type !== null) {
+        // updating product type
+        // if ($p_type !== '' && $p_type !== null) {
             $query = "UPDATE Product_Type_Link SET prodtypeID = ? WHERE productID = ?";
 
             $stmt_prodtype = $con->prepare($query);
-            $stmt_prodtype->bind_param("ii", $p_type, $productID);
+            $stmt_prodtype->bind_param("ii", $intcasted_ptypeID, $productID);
             if ($stmt_prodtype->execute()) {
                 echo "Product Type updated. <br/>";
                 // $response['successStatus'] = 'success';
@@ -105,11 +106,11 @@
                 // $response['failStatus'] = 'fail';
                 // $response['error'] = mysqli_error($con);
             }
-        }
+        // }
 
         
         // inserting product category (if have)
-        if ($p_category !== '' && $p_category !== null) {
+        if ($p_category !== '--' && $p_category !== null) {
             $query = "UPDATE Product_Category_Link SET categoryID = ? WHERE productID = ?";
 
             $stmt_prodtype = $con->prepare($query);
@@ -137,7 +138,8 @@
 
             // close db connection
             $stmt_product->close();
-            // header("Location: ../managestocks.php");
+            header("Location: ../managestocks.php");
+            die();
         } else {
             echo "Couldn't insert activity log." . mysqli_error($con) . '<br/>';
             die();

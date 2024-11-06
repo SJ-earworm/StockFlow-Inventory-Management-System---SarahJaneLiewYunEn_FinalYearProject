@@ -1,4 +1,4 @@
-        <div class="horizontal-container">
+<div class="horizontal-container">
             <!-- Logo + Sign Up title -->
             <div class="logo">
                 <a href="index.php">
@@ -11,7 +11,6 @@
                 <a href="index.php">Overview</a>
                 <a href="managestocks.php">Manage Stocks</a>
                 <a href="ordersandvendors.php">Orders & Vendors</a>
-                <a href="reportanalytics_adminonly.php">Reporting & Analytics</a>
             </nav>
 
             <!-- Settings button -->

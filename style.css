@@ -177,6 +177,50 @@ button {
     z-index: 2;
 }
 
+.settings-dropdown {
+    font-size: 18px;
+    position: absolute;
+    top: 12%;
+    right: 5%;
+    z-index: 3;
+    /* height: 70px;
+    width: 170px; */
+    border: 0.5px solid grey;
+    box-shadow: 4px 4px rgba(128, 128, 128, 0.455);
+    background-color: whitesmoke;
+    width: 170px;
+    border-radius: 15px ;
+    visibility: hidden;
+}
+
+.settings-dropdown li {
+    background-color: transparent;
+    width: 100%;
+    list-style: none;
+}
+
+.settings-dropdown ul {
+    display: block;
+    background-color: transparent;
+    /* border: 1px solid black; */
+    padding: 13px 15px 13px 20px;
+    margin-left: -3px;
+    cursor: pointer;
+}
+
+.settings-dropdown ul:hover {
+    background-color: rgba(128, 128, 128, 0.104);
+}
+
+.settings-dropdown a {
+    text-decoration: none;
+    /* height: 2px; */
+    /* line-height: 1; */
+    padding: -10px;
+    display: block;
+    background-color: transparent;
+}
+
 .success-error-status {
     padding: 10px 15px;
     border: 3px inset rgba(0,0,0,.5);
@@ -186,6 +230,16 @@ button {
     left: 50%;
     transform: translate(-63%, 0);
     z-index: 5;
+    visibility: hidden;
+}
+
+.bg-overlay {
+    background-color: rgba(217, 217, 217, 0.699);
+    height: 100%;
+    width: 100%;
+    transform: translate(-5.9%, -17.5%);
+    position: absolute;
+    z-index: 1;
     visibility: hidden;
 }
 
@@ -231,7 +285,7 @@ button {
     width: 53px;
     z-index: 1;
     position: absolute;
-    right: 7%;
+    right: 1%;
     margin-top: -9px;
 }
 
@@ -293,13 +347,26 @@ button {
     text-overflow: ellipsis;
     overflow: hidden;
     /* width: -5%; */
+    /* border: 1px solid black; */
 }
 
 /* manage stock page */
 .mng-stock-grid {
     display: grid;
-    grid-template-columns: 11% 14% 8.6% 11% 8% 7% 7% 15%;
+    grid-template-columns: 11% 23% 8.6% 11% 8% 7% 7% 18%;
     column-gap: 10px;
+}
+
+.mng-stocklist-area {
+    overflow-y: auto;
+    height: 68%;
+    width: 100%;
+    /* border: 1px solid black; */
+    margin: 0px auto;
+}
+
+.mng-stocklist-area::-webkit-scrollbar {
+    width: 3px;
 }
 
 /* search filter */
@@ -400,6 +467,44 @@ button {
     margin: 0;
     padding: 0;
     text-decoration: none;
+}
+
+.delete-product-panel {
+    height: 40%;
+    width: 30%;
+    background-color: whitesmoke;
+    border: 3px solid #FA673E;
+    border-radius: 15px;
+    position: absolute;
+    z-index: 2;
+    top: 28%;
+    left: 34%;
+    /* transform: translate(-50%, -50%); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.del-product-yes-btn {
+    background-color: #FA673E;
+    color: white;
+    padding: 12px 0px;
+    width: 90px;
+    border-radius: 30px;
+    border: none;
+    font-size: 25px;
+}
+
+.del-product-no-btn {
+    background-color: black;
+    color: white;
+    padding: 12px 0px;
+    width: 90px;
+    border-radius: 30px;
+    border: none;
+    font-size: 25px;
 }
 
 
@@ -668,7 +773,7 @@ button {
     visibility: hidden;
 }
 
-.yes-btn {
+.add-edit-yes-btn {
     background-color: #FA673E;
     color: white;
     padding: 8px 0px;
@@ -677,7 +782,7 @@ button {
     border: none;
 }
 
-.no-btn {
+.add-edit-no-btn {
     background-color: black;
     color: white;
     padding: 8px 0px;
@@ -763,7 +868,7 @@ button {
 .main-space-area {
     height: 91.5%;
     width: 97.9%;
-    /* border: 1px solid black */
+    border: 1px solid black
 }
 
 .purchase-order-list-pane {
@@ -781,4 +886,232 @@ button {
     font-size: 25px;
     display: flex;
     align-items: center;
+}
+
+.po-pane-list-area {
+    height: 91.4%;
+    width: 99%;
+    /* border: 1px solid black; */
+    background-color: transparent;
+    list-style: none;
+    margin: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.po-pane-ul {
+    font-size: 20px;
+    margin: 0px;
+    width: 85.5%;
+    padding: 14px 20px;
+    background-color: transparent;
+    border-bottom: 1px solid black;
+    /* border: 1px solid black; */
+}
+
+.po-pane-ul:hover {
+    background-color: rgba(255, 255, 255, 0.586);
+}
+
+.po-pane-ul.active {
+    background-color: #fa673e85 !important;
+}
+
+.po-viewer {
+    height: 100%;
+    width: 80%;
+    border: 1px solid black;
+}
+
+
+
+
+/*  NEW PURCHASE ORDERS */
+.npo-text {
+    font-size: 18px;
+}
+
+.initial-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0px auto;
+    margin-top: 15px;
+}
+
+.npo-table {
+    /* overflow: auto; */
+    width: 90%;
+    margin: 0px auto;
+    position: relative;
+    bottom: -5%;
+    /* border: 1px solid black; */
+}
+
+.npo-table table {
+    border: 1px solid #1D1D1D;
+    height: 100%;
+    width: 80%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 1px;
+    text-align: left;
+    margin: 0px auto;
+}
+
+.npo-table th {
+    border: 1px solid #dededf;
+    background-color: #FA673E;
+    color: white;
+    padding: 10px 20px;
+}
+
+.npo-table td {
+    border: 1px solid #1d1d1d3f;
+    background-color: #f5f5f5;
+    color: #000000;
+    padding: 10px 20px;
+    height: 40px;
+}
+
+.npo-table th:nth-child(1), td:nth-child(1) {
+    width: 100px;
+}
+
+.npo-table th:nth-child(2), td:nth-child(2) {
+    width: 300px;
+}
+
+.npo-table th:nth-child(3), td:nth-child(3) {
+    width: 100px;
+}
+
+.npo-table th:nth-child(4), td:nth-child(4) {
+    width: 100px;
+}
+
+.npo-table th:nth-child(5), td:nth-child(5) {
+    width: 150px;
+}
+
+.add-field-btn {
+    font-size: 18px;
+    background-color: transparent;
+    color: #FA673E;
+    padding: 10px 15px;
+    width: 120px;
+    position: relative;
+    left: 75%;
+    top: 5%;
+    border: none;
+}
+
+.create-po-btn {
+    font-size: 20px;
+    background-color: #FA673E;
+    color: white;
+    padding: 10px 15px;
+    width: 240px;
+    position: relative;
+    border: none;
+    border-radius: 25px;
+    left: 66%;
+    top: 12%
+}
+
+/* ensuring css applies */
+.create-po-btn button {
+    font-size: 20px;
+    background-color: #FA673E;
+    color: white;
+    padding: 10px 15px;
+    position: relative;
+    border: none;
+    border-radius: 25px;
+}
+
+.pselect-panel-po {
+    height: 85%;
+    width: 60%;
+    background-color: #F1EFE6;
+    border: 3px solid #FA673E;
+    border-radius: 30px;
+    position: absolute;
+    top: 8%;
+    left: 19%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.po-ptype-pane {
+    height: 370px;
+    width: 280px;
+    background-color: white;
+    border: 1px solid #fa673e63;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0px auto;
+}
+
+.po-ptype-pane-header {
+    padding: 9px 10px;
+    margin: 0px;
+    width: 100%;
+    background-color: rgba(153, 153, 153, 0.551);
+
+}
+
+.po-prod-pane {
+    height: 370px;
+    width: 900PX;
+    background-color: white;
+    border: 1px solid #fa673e63;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-size: 16px;
+}
+
+.po-prod-list-space {
+    height: 95%;
+    width: 100%;
+    overflow-y: auto;
+    background-color: transparent;
+    margin: 0px auto;
+}
+
+.po-grid {
+    display: grid;
+    grid-template-columns: 50% 30% 20% ;
+    column-gap: 10px;
+    background-color: transparent;
+}
+
+.po-grid span {
+    background-color: transparent;
+}
+
+.po-grid-element {
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    background-color: transparent;
+    /* width: -5%; */
+    /* border: 1px solid black; */
+}
+
+.po-grid-row:hover {
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.218);
 }

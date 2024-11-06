@@ -12,18 +12,25 @@
     $stmt->execute();
     $result = $stmt->get_result();  // fetching query result
 
+    // if no category is set (for edititem.php), display '--' as disabled selected hidden
+    if (isset($p_categoryID)) {
+        if ($p_categoryID == '--' || $p_categoryID == null) {
+            echo '<option value="" disabled selected hidden>--</option>';
+        }
+    }
 
     // populating dropdown with vendor names pulled from db
     if (mysqli_num_rows($result) > 0) {
         while($row = $result->fetch_assoc()) {
             // only for edititem_admin.php
             $selected = '';
-            if ($categoryID !== '' || $categoryID !== null) {
-                if ($row['categoryID'] === $categoryID)
-                    $selected = 'selected';
+
+            // for edititem.php
+            if (isset($p_categoryID) && $row['categoryID'] == $p_categoryID) {
+                $selected = 'selected';
             }
 
-            echo '<option value="' . $row['categoryID'] . '"' . $selected . '>'. $row['category'] .'</option>';
+            echo '<option value="' . $row['categoryID'] . '" ' .$selected. '>'. $row['category'] .'</option>';
         }
     } else {
         echo '<option>-</option>';

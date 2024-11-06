@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="utf=8">
     <head>
-        <title>Manage Stocks</title>
+        <title>Purchase Orders</title>
 
         <!--css stylesheet-->
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -32,8 +32,8 @@
         
         <!-- Page title -->
         <div class="main-content">
-            <div style="position: fixed; height: 81%; width: 88%; margin-left: 0px; border: 1px solid black;">
-                <!-- COLUMN HEADER SECTION -->
+            <div style="position: fixed; height: 79%; width: 88%; margin-left: 0px;">
+                <!-- TITLE + CREATE PURCHASE ORDER BUTTON + SEARCH FILTER -->
                 <div class="above-col-header">
                     <!-- page title -->
                     <h1 style="padding-left: 0.3%; margin-bottom: 10px;">Purchase Orders</h1>
@@ -41,7 +41,7 @@
                     <!-- buttons -->
                     <div class="item-cat-btn-div" style="width: 250px; left: 36%;">
                         <!-- Add item button-->
-                        <a href="addnewitem.php" style="margin: 0; padding: 0; text-decoration: none;">
+                        <a href="newpurchaseorder.php" style="margin: 0; padding: 0; text-decoration: none;">
                             <button style="width: 190px">Create new purchase order</button>
                         </a>
                     </div>
@@ -55,11 +55,20 @@
                     </form>
                 </div>
 
-                <div class="main-space-area">
-                    <!-- purchase order list -->
+                <div class="main-space-area horizontal-container" style="justify-content: space-between;">
+                    <!-- PURCHASE ORDER PANE -->
                     <div class="purchase-order-list-pane">
                         <div class="po-pane-header"><span style="margin-left: 18px; background-color: transparent;">Orders</span></div>
+                        <!-- purchase order list -->
+                        <li class="po-pane-list-area">
+                            <ul class="po-pane-ul">Dummy list</ul>
+                            <ul class="po-pane-ul">Dummy list</ul>
+                            <ul class="po-pane-ul">Dummy list</ul>
+                        </li>
                     </div>
+
+                    <!-- PURCHASE ORDER PDF VIEWER -->
+                    <div class="po-viewer"></div>
                 </div>
             </div>
         </div>
@@ -67,64 +76,18 @@
 
         <!-- Javascript -->
         <script>
-            // panel visibiltiy
-            
+            // setting active PO list (PO panel)
+            document.querySelectorAll('.po-pane-ul').forEach(ul => {
+                // adding click listner for each <ul>
+                ul.addEventListener('click', () => {
+                    // removing .active from all <ul>
+                    document.querySelectorAll('.po-pane-ul').forEach(ulRemoveActive => {
+                        ulRemoveActive.classList.remove('active');
+                    });
 
-            // NEW CATEGORY NAME: form submission
-            document.getElementById('newCategoryForm').addEventListener('submit', function(e) {
-                e.preventDefault();  // preventing default submit sequence
-
-                // creating FormData object for the target form
-                // const formData = new FormData(this);
-                // note: FormData is a js object that automatically fetches all the form data in key-value pairs
-                //       (especially if you have many fields) so you won't have to manually retrieve each input value
-
-                // manually putting form data into an object to be sent over to backend
-                const formData = {
-                    newcatname: this.catname.value
-                };
-                console.log(formData);
-
-                // sending form data to backend file
-                fetch('http:/StockFlow IMS (FINAL YEAR PROJECT)/db/addnewcategory_db.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.json())  // retrieving response from backend
-                // .then(data => console.log(data))  // debugging
-                .then(data => {
-                    const message = document.getElementById('successErrorStatus');
-
-                    if (data.status == 'success') {
-                        // clear input field
-                        this.catname.value = '';
-
-                        message.innerHTML = data.message;
-                        message.style.color = 'green';
-                        message.style.backgroundColor = '#9CFFB0';
-                        message.style.visibility = 'visible';
-                        // hiding message after 3s
-                        setTimeout(() => {
-                            message.style.visibility = 'hidden';
-                        }, 3000);
-                    } else {
-                        message.innerHTML = data.message;
-                        message.style.color = 'black';
-                        message.style.backgroundColor = '#FF9999';
-                        message.style.visibility = 'visible';
-                        // hiding message after 3s
-                        setTimeout(() => {
-                            message.style.visibility = 'hidden';
-                        }, 3000);
-
-                        // logging backend error to console
-                        console.log(data.log);
-                    }
-                })
-                .catch(error => console.error('Error: ', error));
+                    // adding .active to the clicked <ul>
+                    ul.classList.add('active');
+                });
             });
         </script>
     </body>

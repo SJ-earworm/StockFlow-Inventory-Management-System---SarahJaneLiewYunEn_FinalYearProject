@@ -20,9 +20,6 @@
         <!-- Dashboard -->
         <h1> (Dashboard) </h1>
 
-        <!-- Link to login.php -->
-        <a href="login.php"><p align="center">Have an account? Log In instead</p></a>
-
 
 
         <!-- Javascript -->

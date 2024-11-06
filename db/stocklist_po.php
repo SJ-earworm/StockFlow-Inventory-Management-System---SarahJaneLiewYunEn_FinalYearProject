@@ -107,27 +107,11 @@
     $result = $stmt->get_result();
     if (mysqli_num_rows($result) > 0) {
         while($row = $result->fetch_assoc()) {
-            echo '<div class="mng-stock-grid row" style=" padding: 10px 0px; height: 14px;">';
-            echo '  <span class="grid-element">' . $row['SKU'] . '</span>';  // SKU
-            echo '  <span class="grid-element">' . $row['prod_name'] . '</span>';  // Product Name
-            echo '  <span class="grid-element">' . $row['serial_no'] . '</span>';  // Serial Number
-            echo '  <span class="grid-element">' . $row['brand'] . '</span>';  // Brand
-            echo '  <span class="grid-element">' . (isset($row['prod_type']) ? $row['prod_type'] : '--') . '</span>';  // Product Type
-            echo '  <span class="grid-element">' . $row['unit_price'] . '</span>';  // Unit Price
-            echo '  <span class="grid-element">' . $row['quantity'] . '</span>';  //Stock Count
-            echo '  <span class="grid-element">' . $row['name'] . '</span>';    // this is for the vendor
-            
-                    // edit / delete buttons
-            echo '  <div class="edit-del-btn">';
-                        // edit button
-            echo '      <a href="edititem.php?ID=' . $row['productID'] . '">';
-            echo '          <i class="fa fa-edit"></i>';
-            echo '      </a>';
-                        // delete button
-            echo '      <button onclick="toggleConfirm()" id="itemToDelete" value="' . $row['productID'] . '">';
-            echo '          <i class="fa fa-trash-o"></i>';
-            echo '      </button>';
-            echo '  </div>';
+            echo '<div class="po-grid po-grid-row" style=" padding: 10px 0px; height: 14px;" data-product-id="' .$row['productID']. '">';   // data-product-id is a custom 'value holder' cos <div> doesn't support 'value'
+            echo '  <span class="po-grid-element">' . $row['prod_name'] . '</span>';  // Product Name
+            echo '  <span class="po-grid-element">' . $row['SKU'] . '</span>';  // SKU
+            echo '  <span class="po-grid-element">' . $row['brand'] . '</span>';  // Brand
+            // echo '  <span class="grid-element">' . $row['unit_price'] . '</span>';  // Unit Price
             echo '</div>';
 
             echo '<hr class="list-divider">';

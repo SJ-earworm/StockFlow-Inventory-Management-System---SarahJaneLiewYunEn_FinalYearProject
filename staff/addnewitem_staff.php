@@ -14,7 +14,7 @@
     <body>
         <!-- Header -->
         <?php
-            include('web_components/admin_header.php');
+            include('web_components/staff_header.php');
         ?>
 
         <!-- temporary, for debugging -->
@@ -79,12 +79,12 @@
                 <!-- Product category -->
                 <div class="horizontal-container" style="width: 398px">
                     <!-- Dropdown -->
-                    <select name="prodcat" class="edititem-dropdowns" id="dropdown" onChange="setSelectionColour">
+                    <!-- <select name="prodcat" class="edititem-dropdowns" id="dropdown" onChange="setSelectionColour">
                         <option value="" style="color: gray;" disabled selected hidden>Category</option>
                         <?php
-                            include('db/categorylist.php');
+                            // include('db/categorylist.php');
                         ?>
-                    </select>
+                    </select> -->
                     <!-- Edit button -->
                     <button class="edititem-buttons">Edit categories</button>
                 </div>

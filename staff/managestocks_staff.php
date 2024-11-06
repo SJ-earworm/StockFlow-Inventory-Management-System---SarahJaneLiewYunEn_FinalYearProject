@@ -22,7 +22,7 @@
     <body>
         <!-- Header -->
         <?php
-            include("web_components/admin_header.php");
+            include("web_components/staff_header.php");
         ?>
 
         <!-- temporary, for debugging -->
@@ -75,7 +75,7 @@
                 </div>
                 <hr class="col-header-ln-1">
 
-                <div class="mng-stocklist-area">
+                <div style="overflow-y: auto; height: 68%;">
                     <!-- Stock list -->
                     <?php
                         include("db/stocklist.php");
