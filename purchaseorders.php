@@ -8,7 +8,7 @@
     if ($user_type == 'admin') {
         include("admin/purchaseorders_admin.php");
     } else if ($user_type == 'staff') {
-        // include("index_staff.php");
+        include("staff/purchaseorders_staff.php");
     } else {
         // users who somehow snuck in without an account
         echo "Error 404. No account detected. Please create an account.";

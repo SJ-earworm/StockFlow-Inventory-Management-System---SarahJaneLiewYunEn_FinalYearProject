@@ -223,9 +223,6 @@
                 } else {
                     deleteProductPanel.style.visibility = 'hidden';
                 }
-
-                const itemToDelete = document.getElementById('itemToDelete');  // product value
-                document.getElementById('debuggingDel').innerHTML = 'productID: ' + itemToDelete.value;
             }
 
             // when delete is canceled
@@ -516,7 +513,10 @@
                         // hiding message after 3s
                         setTimeout(() => {
                             message.style.visibility = 'hidden';
+                            // reloading page
+                            window.location.reload();
                         }, 3000);
+
                     } else {
                         message.innerHTML = data.message;
                         message.style.color = 'black';

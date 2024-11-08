@@ -107,7 +107,29 @@
     $result = $stmt->get_result();
     if (mysqli_num_rows($result) > 0) {
         while($row = $result->fetch_assoc()) {
-            echo '<div class="po-grid po-grid-row" style=" padding: 10px 0px; height: 14px;" data-product-id="' .$row['productID']. '">';   // data-product-id is a custom 'value holder' cos <div> doesn't support 'value'
+            // storiing SKU, prod_name & unit_price into key-value pairs array
+            // $POAutofill = [
+            //     'SKU' => $row['SKU'],
+            //     'prod_name' => $row['prod_name'],
+            //     'unit_price' => $row['unit_price']
+            // ];
+
+            // DEBUGGING
+            // echo "POAutofill SKU: " . $POAutofill['SKU'];
+
+            // encoding array data into JSON for td fill later
+            // $POAutofillJSON = htmlspecialchars(json_encode($POAutofill), ENT_QUOTES, 'UTF-8');
+            // htmlspecialchars is to convert escape characters into their HTML versions (e.g. '&' -> '&amp;') to prevent cross-site scripting (XSS)/SQL injection
+            // ENT_QUOTES & UTF-8 comes tgt with htmlspecialchars to make the conversion to HTML characters work
+
+            // debugging
+            // echo "JSON ver.: " . $POAutofillJSON;
+
+            echo '<div class="po-grid po-grid-row" style=" padding: 10px 0px; height: 14px;" ';
+            echo 'data-product-SKU="' .htmlspecialchars($row['SKU']). '" ';                 // passing product data
+            echo 'data-product-prodname="' .htmlspecialchars($row['prod_name']). '" ';      // in custom 'value-holders'
+            echo 'data-product-uprice="' .htmlspecialchars($row['unit_price']). '" ';
+            echo 'data-product-brandAsKey="' .htmlspecialchars($row['brand']). '">';   // data-(product-*) is a custom 'value holder' cos <div> doesn't support 'value'
             echo '  <span class="po-grid-element">' . $row['prod_name'] . '</span>';  // Product Name
             echo '  <span class="po-grid-element">' . $row['SKU'] . '</span>';  // SKU
             echo '  <span class="po-grid-element">' . $row['brand'] . '</span>';  // Brand

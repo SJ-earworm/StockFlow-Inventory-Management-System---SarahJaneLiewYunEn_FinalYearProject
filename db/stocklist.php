@@ -52,7 +52,8 @@
 
 
         $stmt = $con->prepare($query);
-        $stmt->bind_param("issssss", $userID, $searchInputWithWildcards, $searchInputWithWildcards, $searchInputWithWildcards, $searchInputWithWildcards, $searchInputWithWildcards, $searchInputWithWildcards);
+        $stmt->bind_param("issssss", $userID, $searchInputWithWildcards, $searchInputWithWildcards, $searchInputWithWildcards, 
+                            $searchInputWithWildcards, $searchInputWithWildcards, $searchInputWithWildcards);
 
     } else {
         // debugging

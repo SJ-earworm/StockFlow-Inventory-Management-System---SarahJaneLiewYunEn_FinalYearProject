@@ -25,7 +25,7 @@
     <body>
         <!-- Header -->
         <?php
-            include("web_components/admin_header.php");
+            include("web_components/staff_header.php");
         ?>
 
         <!-- temporary, for debugging -->

@@ -3,6 +3,7 @@
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 
+
         // Retrieving user input data from signup.php form
         $store_name = $_REQUEST['storename'];
         $user_name = $_REQUEST['username'];
@@ -10,6 +11,14 @@
         $email = $_REQUEST['email'];
         $password = $_REQUEST['password'];
         $cpassword = $_REQUEST['confirmpassword'];
+
+
+        // if password requirement is not met
+        if (strlen($password) < 8 || !preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) 
+            || !preg_match('/[0-9]/', $password) || !preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+                echo "Password did not meet requirement.";
+                die();
+            }
 
 
         // Checking if store exists
@@ -22,13 +31,13 @@
         $stmt_store->close();
         if ($strcount < 1) {
             // Store does not exist message
-            echo "Store not registered";
+            echo "Store not registered!";
             die();
         }
 
 
         // test
-        echo "Store count complete <br/>";
+        // echo "Store count complete <br/>";
 
 
         // Checking if email exists
@@ -41,13 +50,13 @@
         $stmt_email->close();
         if ($emcount > 0) {
             // Email exists, use another email
-            echo "Email exists!";
+            echo "Email exists! Please use another email.";
             die();
         }
 
 
         // test
-        echo "Email count complete <br/>";
+        // echo "Email count complete <br/>";
 
 
         // Only if password has been confirmed entered correctly
@@ -76,7 +85,7 @@
             }
             
         } else {
-            echo "Password mismatch.";
+            echo "The passwords do not match.";
             die();
         }
     }

@@ -21,21 +21,6 @@
             $stmt->execute();
             $stmt->bind_result($dbpassword, $userID, $dbemail);
 
-            // test
-            // $stmt->fetch();
-            // if ($stmt->execute()) {
-            //     $result = $stmt->get_result();
-            //     if ($row = $result->fetch_assoc()) {
-            //         echo "Retrived password: " . $row['password'] . "<br/>";
-            //         echo "Retrived user ID: " . $row['userID'] . "<br/>";
-            //         echo "Retrived email: " . $row['email'];
-            //     }
-            // }
-            
-            // echo "Retrived password: " . $dbpassword . "<br/>";
-            // echo "Retrived user ID: " . $userID . "<br/>";
-            // echo "Retrived email: " . $dbemail;
-
             if ($stmt->fetch()) {
                 // Close db connection
                 $stmt->close();
